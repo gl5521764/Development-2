@@ -1,0 +1,18 @@
+#include<stdio.h>
+#include<window.h>
+#include<stdlib.h>
+#include<string.h>
+#include<stdbool.h>
+#define MAX_STUDENTS 50
+#define MAX_GRADES 50
+#define MAX_COURSES 3
+
+struct Student { 
+    int id; 
+    char name[50];
+};
+struct Grade {
+    int studentId; 
+    char course[50]; 
+    double score; 
+};

@@ -1,0 +1,18 @@
+void saveData(List* list) 
+{
+    FILE* fp =fopen("studentData.txt","a");
+    if (fp == NULL) 
+    {
+        printf("无法打开文件进行保存\n");
+        return ;
+    }
+    Node_S* curNode = list->head;
+    while (curNode != NULL) 
+    {
+        fwrite(&curNode->student, sizeof(Student), 1, fp);
+        curNode = curNode->next;
+    }
+
+    fclose(fp);
+    // 保存数据
+}
