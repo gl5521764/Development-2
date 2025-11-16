@@ -7,8 +7,7 @@
 #define MAX_STUDENTS 50
 #define MAX_GRADES 50
 #define MAX_COURSES 3
-#define Username"xls"
-#define Password "123456"
+
 struct Student { 
     int id; 
     char name[50];
