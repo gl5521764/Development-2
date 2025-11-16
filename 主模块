@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<stdbool.h>
+#include"grade_manage.h"
 #define MAX_STUDENTS 50
 #define MAX_GRADES 50
 #define MAX_COURSES 3
