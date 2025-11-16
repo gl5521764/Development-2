@@ -1,1 +1,20 @@
+void login() {
+    //用户登录验证
+    char Username[] = "xls";
+    char Password[] = "123456";
+    char username[20];
+    char password[20];
+    printf("请输入用户名：\n");
+    scanf_s("%s", username, sizeof(username));
+    printf("请输入密码：\n");
+    scanf_s("%s", password, sizeof(password));
+    if (strcmp(username, Username) == 0 && strcmp(password, Password) == 0) {
+        printf("登录成功\n");
+        clearScreen();
+        showMenu();
+    }
+    else {
+        printf("用户名或密码错误，请重新输入\n");
+    }
 
+}
