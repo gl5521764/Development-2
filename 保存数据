@@ -1,18 +1,19 @@
-void saveData(List* list) 
+void saveData()
 {
-    FILE* fp =fopen("studentData.txt","a");
-    if (fp == NULL) 
+    FILE* fp = fopen("studentData.txt", "a"); // "a" 追加，改成 "w" 可覆盖写入
+    if (fp == NULL)
     {
         printf("无法打开文件进行保存\n");
-        return ;
+        return;
     }
-    Node_S* curNode = list->head;
-    while (curNode != NULL) 
+
+    // 将 grades 数组以文本形式写入文件：学号 课程 成绩
+    for (int i = 0; i < gradeCount; ++i)
     {
-        fwrite(&curNode->student, sizeof(Student), 1, fp);
-        curNode = curNode->next;
+        // 每条记录一行，便于人工查看和读取
+        fprintf(fp, "%d %s %.2f\n", grades[i].studentId, grades[i].course, grades[i].score);
     }
 
     fclose(fp);
-    // 保存数据
+    printf("已将 %d 条成绩保存到 studentData.txt\n", gradeCount);
 }
