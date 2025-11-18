@@ -1,1 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
+#define MAX_STUDENTS 300
+
+struct Student {
+    char id;
+    char name[50];
+};
+
+struct Student students[MAX_STUDENTS];
+int studentCount = 0;
+void saveData();
+
+void AddStudent()
+ {
+    if (studentCount >= MAX_STUDENTS) 
+   {    
+        printf("学生数量已达上限，无法添加！\n");
+        return;
+    }
+
+    struct Student s;
+    printf("请输入学号：");
+    scanf("%hhd", &s.id);
+
+    for (int i = 0; i < studentCount; i++)
+   {
+        if (students[i].id == s.id)
+       {
+            printf("该学号已存在，添加失败！\n");
+            return;
+        }
+    }
+
+    printf("请输入姓名：");
+    scanf("%s", s.name);
+
+    students[studentCount++] = s;
+    printf("学生添加成功！\n");
+    saveData();
+}
