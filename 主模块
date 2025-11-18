@@ -1,19 +1,72 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
-#include<windows.h>
+#include<Windows.h>
 #include<stdlib.h>
-#include<string.h>
 #include<stdbool.h>
-#include"grade_manage.h"
-#define MAX_STUDENTS 50
-#define MAX_GRADES 50
-#define MAX_COURSES 3
+#include<string.h>
+#include "grade_manage.h"
+#include "student_manage.h"
+#include "Data.h"
+void saveData()
+{
+	saveData_s();
+	saveData_g();
+}
+void loadData()
+{
+	loadData_s();
+	loadData_g();
+}
+void saveData_s();
+void saveData_g();
+void loadData_s();
+void loadData_g();
 
-struct Student { 
-    int id; 
-    char name[50];
-};
-struct Grade {
-    int studentId; 
-    char course[50]; 
-    double score; 
-};
+struct Grade grades[50];
+int gradeCount = 0;
+struct Student students[50];
+int studentCount = 0;
+HWND hWnd = FindWindow(NULL, L"管理系统");
+int main() {
+re:
+	if (login() == true) {
+		while (true) {
+
+			switch (showMenu()) {
+			case 0:
+			{
+				int ex = MessageBox(hWnd, L"确认退出", L"退出系统", MB_OK | MB_OKCANCEL);
+				if (ex == IDOK) {
+					saveData();
+					exit(0);//退出程序
+				}
+			}
+			break;
+			case 1:
+				system("cls");//清屏
+				manageStudents();
+				break;
+			case 2:
+				system("cls");//清屏
+				manageGrades();
+				break;
+			case 3:
+				system("cls");//清屏
+				showRankings();
+				break;
+			default:
+				printf("请重新输入\n");
+				MessageBox(hWnd, L"无效选项", L"提示", MB_OK);
+
+			}
+			system("pause");//程序暂停
+			system("cls");//清屏
+		}
+	}
+	else {
+		MessageBox(hWnd, L"登陆失败", L"错误", MB_OK);
+		system("cls");
+		goto re;
+	}
+	return 0;
+}
