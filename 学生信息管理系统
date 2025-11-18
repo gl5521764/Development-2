@@ -26,10 +26,9 @@ struct Grade grades[50];
 int gradeCount = 0;
 struct Student students[50];
 int studentCount = 0;
-HWND hWnd = FindWindow(NULL, L"管理系统");
+HWND hWnd = FindWindow(NULL, "管理系统");
 
 bool login() {
-	//用户登录验证
 	printf("欢迎使用学生成绩管理系统\n");
 	char Username[] = "xls";
 	char Password[] = "123456";
@@ -42,7 +41,6 @@ bool login() {
 	if (strcmp(username, Username) == 0 && strcmp(password, Password) == 0) {
 		printf("登录成功\n");
 		system("cls");
-		//showMenu();
 		return true;
 	}
 	else {
@@ -50,8 +48,6 @@ bool login() {
 	}
 
 }
-
-
 int showMenu() {
 	printf("*****************************************\n");
 	printf("        欢迎来到学生成绩管理系统          \n");
@@ -69,12 +65,6 @@ int showMenu() {
 
 	return select;
 }
-
-
-
-
-
-
 
 void manageStudents() {
 	int option;
@@ -128,7 +118,7 @@ void manageStudents() {
 }
 void AddStudent()
 {
-	if (studentCount >=50)
+	if (studentCount >= 50)
 	{
 		printf("学生数量已达上限，无法添加！\n");
 		return;
@@ -269,7 +259,6 @@ void deleteStudent()
 	saveData_s();
 }
 
-
 void manageGrades()
 {
 	int option;
@@ -311,12 +300,12 @@ void manageGrades()
 void inputGrades()
 {
 	printf("请输入学号：");
-	scanf_s("%d", & grades[gradeCount].studentId);
+	scanf_s("%d", &grades[gradeCount].studentId);
 	printf("请输入课程名称：");
 	getchar();
 	scanf_s("%49[^\n]", grades[gradeCount].course, (unsigned int)_countof(grades[gradeCount].course));
 	printf("请输入成绩：");
-	scanf_s("%lf", & grades[gradeCount].score);
+	scanf_s("%lf", &grades[gradeCount].score);
 
 	gradeCount++;
 	saveData_g();
@@ -343,21 +332,19 @@ void queryGrades()
 	}
 }
 
-
-
 void showRankings() { // 成绩排名显示
-	loadData_g();
+    loadData_g();
 	int n = gradeCount; // 使用实际成绩数量
 	int max = 0;
 	int min = 0;
 	int j, k, temp1, temp2;
 	char temp3[50];
-	printf("==============成绩排名===============\n");
-	printf("|  排名  |  学号  |  课程  |  成绩  |\n");
-	printf("-------------------------------------\n");
+	printf("==================成绩排名==================\n");
+	printf(" 排名 |     学号     |    课程    | 成绩   \n");
+	printf("--------------------------------------------\n");
 	for (int i = 0; i < n; i++) {
 		k = i;
-		for (j = i + 1; j < n; j++) { 
+		for (j = i + 1; j < n; j++) {
 			if (grades[j].score > grades[k].score) {
 				k = j;
 			}
@@ -369,25 +356,26 @@ void showRankings() { // 成绩排名显示
 			int tempId = grades[i].studentId;
 			grades[i].studentId = grades[k].studentId;
 			grades[k].studentId = tempId;
-			strcpy_s(temp3, grades[i].course); 
+			strcpy_s(temp3, grades[i].course);
 			strcpy_s(grades[i].course, grades[k].course);
 			strcpy_s(grades[k].course, temp3);
 		}
-		printf("   %d   |  %d  |  %s  |  %.2f  |\n", i + 1, grades[i].studentId, grades[i].course, grades[i].score);
+		printf(" %-4d | %-12d | %-10s | %-5.2f \n", i + 1, grades[i].studentId, grades[i].course, grades[i].score);
 	}
-	system("pause");
+	//system("pause");
 }
+
 void saveData_s()
 {
-	FILE* fp = fopen("studentData_s.txt", "w"); 
+	FILE* fp = fopen("studentData_s.txt", "w");
 	if (fp == NULL)
 	{
 		printf("无法打开文件\n");
 		return;
 	}
 
-	
-	for (int i = 0; i < studentCount;++i)
+
+	for (int i = 0; i < studentCount; ++i)
 	{
 		fprintf(fp, "%d %s\n", students[i].id, students[i].name);
 	}
@@ -414,7 +402,7 @@ void loadData_s()
 }
 void saveData_g()
 {
-	FILE* fp = fopen("studentData_g.txt", "w"); 
+	FILE* fp = fopen("studentData_g.txt", "w");
 	if (fp == NULL)
 	{
 		printf("无法打开文件\n");
@@ -424,12 +412,11 @@ void saveData_g()
 
 	for (int i = 0; i < gradeCount; ++i)
 	{
-		
+
 		fprintf(fp, "%d %s %.2f\n", grades[i].studentId, grades[i].course, grades[i].score);
 	}
 	fclose(fp);
 }
-
 void loadData_g()
 {
 	FILE* fp = fopen("studentData_g.txt", "r");
@@ -438,7 +425,7 @@ void loadData_g()
 		return;
 	}
 	gradeCount = 0;
-	while (fscanf_s(fp, "%d %49s %lf", &grades[gradeCount].studentId,grades[gradeCount].course, (unsigned int)_countof(grades[gradeCount].course),&grades[gradeCount].score) == 3)
+	while (fscanf_s(fp, "%d %49s %lf", &grades[gradeCount].studentId, grades[gradeCount].course, (unsigned int)_countof(grades[gradeCount].course), &grades[gradeCount].score) == 3)
 	{
 		gradeCount++;
 		if (gradeCount >= 50)
@@ -457,36 +444,36 @@ re:
 			switch (showMenu()) {
 			case 0:
 			{
-				int ex = MessageBox(hWnd, L"确认退出", L"退出系统", MB_OK | MB_OKCANCEL);
+				int ex = MessageBox(hWnd, "确认退出", "退出系统", MB_OK | MB_OKCANCEL);
 				if (ex == IDOK) {
 					saveData();
-					exit(0);//退出程序
+					exit(0);
 				}
 			}
 			break;
 			case 1:
-				system("cls");//清屏
+				system("cls");
 				manageStudents();
 				break;
 			case 2:
-				system("cls");//清屏
+				system("cls");
 				manageGrades();
 				break;
 			case 3:
-				system("cls");//清屏
+				system("cls");
 				showRankings();
 				break;
 			default:
 				printf("请重新输入\n");
-				MessageBox(hWnd, L"无效选项", L"提示", MB_OK);
+				MessageBox(hWnd, "无效选项", "提示", MB_OK);
 
 			}
-			system("pause");//程序暂停
-			system("cls");//清屏
+			system("pause");
+			system("cls");
 		}
 	}
 	else {
-		MessageBox(hWnd, L"登陆失败", L"错误", MB_OK);
+		MessageBox(hWnd, "登陆失败", "错误", MB_OK);
 		system("cls");
 		goto re;
 	}
