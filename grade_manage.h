@@ -1,5 +1,5 @@
-#ifndef Grade_MANAGER_H
-#define Grade_MANAGER_H
+#ifndef Grade_MANAGE_H
+#define Grade_MANAGE_H
 struct Grade
 {
     int studentId;
