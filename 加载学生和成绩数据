@@ -1,1 +1,17 @@
-
+void loadData_s()
+{
+	FILE* fp = fopen("studentData_s.txt", "r");
+	if (fp == NULL)
+	{
+		return;
+	}
+	studentCount = 0;
+	while (fscanf_s(fp, "%d %49s", &students[studentCount].id, students[studentCount].name, (unsigned int)_countof(students[studentCount].name)) == 2)
+	{
+		studentCount++;
+		if (studentCount >= 50)
+		{
+			break;
+		}
+		fclose(fp);
+	}
