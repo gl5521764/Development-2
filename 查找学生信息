@@ -4,7 +4,7 @@ void FoundStudent()
     char id;
     char name[50];
 
-    printf("\n===== 查询方式 =====\n");
+    printf("\n****** 查询方式 ******\n");
     printf("1. 按学号查询\n");
     printf("2. 按姓名查询\n");
     printf("请选择：");
